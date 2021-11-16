@@ -45,7 +45,7 @@ class MixpanelGroupsProducerTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(true, $msg['$ignore_time']);
         $this->assertArrayHasKey('$set', $msg);
         $this->assertArrayHasKey("industry", $msg['$set']);
-        $this->assertEquals("tech", $msg['$set']['industry']);
+        $this->assertEquals("Tech", $msg['$set']['industry']);
     }
 
 
@@ -57,10 +57,9 @@ class MixpanelGroupsProducerTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("company", $msg['$group_key']);
         $this->assertEquals("Mixpanel", $msg['$group_id']);
         $this->assertEquals("token", $msg['$token']);
-        $this->assertArrayNotHasKey('$ignore_time', $msg);
-        $this->assertArrayHasKey('$set', $msg);
+        $this->assertArrayHasKey('$set_once', $msg);
         $this->assertArrayHasKey("industry", $msg['$set_once']);
-        $this->assertEquals("tech", $msg['$set']['industry']);
+        $this->assertEquals("Tech", $msg['$set_once']['industry']);
     }
 
     public function testAppendSingle() {
@@ -70,9 +69,9 @@ class MixpanelGroupsProducerTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals("company", $msg['$group_key']);
         $this->assertEquals("Mixpanel", $msg['$group_id']);
-        $this->assertArrayHasKey('$append', $msg);
-        $this->assertArrayHasKey("actions", $msg['$append']);
-        $this->assertEquals("Logged In", $msg['$append']['actions']);
+        $this->assertArrayHasKey('$union', $msg);
+        $this->assertArrayHasKey("actions", $msg['$union']);
+        $this->assertEquals("Logged In", $msg['$union']['actions']);
     }
 
     public function testAppendMultiple() {
@@ -99,8 +98,8 @@ class MixpanelGroupsProducerTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("token", $msg['$token']);
         $this->assertArrayNotHasKey('$ignore_time', $msg);
         $this->assertArrayHasKey('$unset', $msg);
-        $this->assertArrayHasKey("industry", $msg['$set']);
-        $this->assertEquals("tech", $msg['$set']['industry']);
+        $this->assertArrayHasKey("industry", $msg['$unset']);
+        $this->assertEquals("tech", $msg['$unset']['industry']);
     }
 
 
